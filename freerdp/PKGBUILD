@@ -1,0 +1,136 @@
+# Maintainer: Sergej Pupykin <pupykin.s+arch@gmail.com>
+# Contributor: David Runge <dvzrv@archlinux.org>
+# Contributor: Stijn Segers <francesco dot borromini at gmail dot com>
+
+_name=FreeRDP
+pkgname=freerdp
+pkgver=3.2.0
+_libver=${pkgver/.*/}
+pkgrel=1
+epoch=1
+pkgdesc="Free implementation of the Remote Desktop Protocol (RDP)"
+arch=(x86_64)
+url="https://www.freerdp.com/"
+license=(Apache-2.0)
+depends=(
+  cjson
+  fuse3
+  gcc-libs
+  glibc
+  libcups
+  libx11
+  libxcursor
+  libxext
+  libxdamage
+  libxfixes
+  libxkbcommon
+  libxi
+  libxinerama
+  libxkbfile
+  libxrandr
+  libxrender
+  libxtst
+  sdl2
+  sdl2_ttf
+  wayland
+)
+makedepends=(
+  alsa-lib
+  cmake
+  docbook-xsl
+  e2fsprogs
+  ffmpeg
+  glib2
+  gtk3
+  icu
+  krb5
+  libjpeg-turbo
+  libp11
+  libpulse
+  libusb
+  openssl
+  pam
+  pkcs11-helper
+  webkit2gtk
+  xmlto
+  xorgproto
+  zlib
+)
+provides=(
+  libfreerdp-client$_libver.so
+  libfreerdp-server-proxy$_libver.so
+  libfreerdp-server$_libver
+  libfreerdp-shadow-subsystem$_libver.so
+  libfreerdp-shadow$_libver.so
+  libfreerdp$_libver.so
+  libuwac0.so
+  librdtk0.so
+  libwinpr-tools$_libver.so
+  libwinpr$_libver.so
+)
+source=(
+  https://github.com/$pkgname/$pkgname/archive/$pkgver/$pkgname-$pkgver.tar.gz
+)
+sha512sums=('84da886d9752a44d3725a6e45aebb067fd35e9d2d28438b670ea31f58aab6913ff6f884a97439c3369878fb26f9a4febb1aac15c4b6c9fb5fe57cf18694499a7')
+b2sums=('df311f41d9c0af38daef1d6890851b726084e15bbc3765348f5c625da2895c5fd4ea11ceedcce882cd23eb2c1310191a4ee746f159bf9d04f9de792f77bbbfab')
+
+build() {
+  local cmake_options=(
+    -B build
+    -D CHANNEL_URBDRC_CLIENT=ON
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_INSTALL_LIBDIR=lib
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_SKIP_INSTALL_RPATH=ON
+    -D PROXY_PLUGINDIR=/usr/lib/freerdp2/server/proxy/plugins
+    -D WITH_ALSA=ON
+    -D WITH_CHANNELS=ON
+    -D WITH_CLIENT_CHANNELS=ON
+    -D WITH_CUPS=ON
+    -D WITH_DSP_FFMPEG=ON
+    -D WITH_FFMPEG=ON
+    -D WITH_FUSE=ON
+    -D WITH_ICU=ON
+    -D WITH_JPEG=ON
+    -D WITH_PCSC=ON
+    -D WITH_PULSE=ON
+    -D WITH_SERVER=ON
+    -D WITH_SERVER_CHANNELS=ON
+    -D WITH_SYSTEMD=ON
+    -D WITH_SWSCALE=ON
+    -D WITH_WAYLAND=ON
+    -D WITH_WINPR_TOOLS=ON
+    -D WITH_X11=ON
+    -S $_name-$pkgver
+    -W no-dev
+  )
+
+  cmake "${cmake_options[@]}"
+  cmake --build build --verbose
+}
+
+check() {
+  ctest --test-dir build --output-on-failure
+}
+
+package() {
+  depends+=(
+    alsa-lib libasound.so
+    e2fsprogs libcom_err.so
+    ffmpeg libavcodec.so libavutil.so libswresample.so libswscale.so
+    glib2 libglib-2.0.so libgobject-2.0.so
+    gtk3 libgtk-3.so
+    icu libicuuc.so
+    krb5 libk5crypto.so libkrb5.so
+    libjpeg-turbo libjpeg.so
+    libpulse libpulse.so
+    libusb libusb-1.0.so
+    openssl libcrypto.so libssl.so
+    pam libpam.so
+    webkit2gtk libjavascriptcoregtk-4.0.so libwebkit2gtk-4.0.so
+    zlib libz.so
+  )
+
+  DESTDIR="$pkgdir" cmake --install build
+  install -vDm 644 $_name-$pkgver/{ChangeLog,README.md} -t "$pkgdir/usr/share/doc/$pkgname/"
+}
