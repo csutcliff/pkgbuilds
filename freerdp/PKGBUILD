@@ -3,7 +3,8 @@
 # Contributor: Stijn Segers <francesco dot borromini at gmail dot com>
 
 _name=FreeRDP
-pkgname=freerdp
+_basename=freerdp
+pkgname=freerdp3
 pkgver=3.2.0
 _libver=${pkgver/.*/}
 pkgrel=1
@@ -57,6 +58,7 @@ makedepends=(
   zlib
 )
 provides=(
+  freerdp=3.2
   libfreerdp-client$_libver.so
   libfreerdp-server-proxy$_libver.so
   libfreerdp-server$_libver
@@ -68,8 +70,11 @@ provides=(
   libwinpr-tools$_libver.so
   libwinpr$_libver.so
 )
+conflicts=(
+  freerdp
+)
 source=(
-  https://github.com/$pkgname/$pkgname/archive/$pkgver/$pkgname-$pkgver.tar.gz
+  https://github.com/$_name/$_name/archive/$pkgver/$_basename-$pkgver.tar.gz
 )
 sha512sums=('84da886d9752a44d3725a6e45aebb067fd35e9d2d28438b670ea31f58aab6913ff6f884a97439c3369878fb26f9a4febb1aac15c4b6c9fb5fe57cf18694499a7')
 b2sums=('df311f41d9c0af38daef1d6890851b726084e15bbc3765348f5c625da2895c5fd4ea11ceedcce882cd23eb2c1310191a4ee746f159bf9d04f9de792f77bbbfab')
