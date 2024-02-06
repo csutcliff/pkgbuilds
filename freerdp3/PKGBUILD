@@ -87,7 +87,7 @@ build() {
     -D CMAKE_INSTALL_LIBDIR=lib
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_SKIP_INSTALL_RPATH=ON
-    -D PROXY_PLUGINDIR=/usr/lib/freerdp2/server/proxy/plugins
+    -D PROXY_PLUGINDIR=/usr/lib/freerdp3/server/proxy/plugins
     -D WITH_ALSA=ON
     -D WITH_CHANNELS=ON
     -D WITH_CLIENT_CHANNELS=ON
