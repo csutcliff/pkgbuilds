@@ -58,7 +58,7 @@ makedepends=(
   zlib
 )
 provides=(
-  freerdp=3.2
+  freerdp=3.5.1
   libfreerdp-client$_libver.so
   libfreerdp-server-proxy$_libver.so
   libfreerdp-server$_libver
