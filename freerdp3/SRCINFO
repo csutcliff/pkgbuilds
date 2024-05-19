@@ -1,6 +1,6 @@
 pkgbase = freerdp3
 	pkgdesc = Free implementation of the Remote Desktop Protocol (RDP)
-	pkgver = 3.2.0
+	pkgver = 3.5.1
 	pkgrel = 1
 	epoch = 2
 	url = https://www.freerdp.com/
@@ -57,9 +57,9 @@ pkgbase = freerdp3
 	provides = librdtk0.so
 	provides = libwinpr-tools3.so
 	provides = libwinpr3.so
-	source = https://github.com/FreeRDP/FreeRDP/archive/3.2.0/freerdp-3.2.0.tar.gz
-	sha512sums = 84da886d9752a44d3725a6e45aebb067fd35e9d2d28438b670ea31f58aab6913ff6f884a97439c3369878fb26f9a4febb1aac15c4b6c9fb5fe57cf18694499a7
-	b2sums = df311f41d9c0af38daef1d6890851b726084e15bbc3765348f5c625da2895c5fd4ea11ceedcce882cd23eb2c1310191a4ee746f159bf9d04f9de792f77bbbfab
+	source = https://github.com/FreeRDP/FreeRDP/archive/3.5.1/freerdp-3.5.1.tar.gz
+	sha512sums=('28082ca5a714362c684f2c551b0ac5823c1708d8e929db93f0ab3911601d3b0d724bbdc06eed517542fb4bd957bb61fcdd00e34c0bda017f0019d52d59cb6b07')
+	b2sums=('7f243593c2da1fb8cef483cd423c3e4d1127cac16ab857eaf7d5c222deaeca6657f32010fd40e90f1b47bd925e493848a3ab6b6b1e9db01a5355d0177c42953a')
 
 pkgname = freerdp3
 	depends = cjson
