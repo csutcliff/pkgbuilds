@@ -5,7 +5,7 @@
 _name=FreeRDP
 _basename=freerdp
 pkgname=freerdp3
-pkgver=3.2.0
+pkgver=3.5.1
 _libver=${pkgver/.*/}
 pkgrel=1
 epoch=2
